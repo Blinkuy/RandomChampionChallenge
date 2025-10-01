@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All characters</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1c1c2d, #2c3e50);
+            color: #f0f4f8;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 2rem 0 2.5rem;
+            font-size: 2.4rem;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+            color: #ffcc70;
+        }
+
+        .characters-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .character-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            padding: 1.5rem;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .character-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .character-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.6rem;
+        }
+
+        .character-id {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #b89a4e; /* немного приглушённый оттенок #ffcc70 */
+            background: rgba(255, 204, 112, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 1px;
+        }
+
+        .character-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffcc70;
+            flex: 1;
+            min-width: 0;
+            word-break: break-word;
+        }
+
+        .character-date {
+            font-size: 1rem;
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.5rem;
+            }
+
+            .back-button {
+                top: 12px;
+                left: 12px;
+                padding: 8px 16px;
+                font-size: 0.95rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin: 1.5rem 0 2rem;
+            }
+
+            .character-name {
+                font-size: 1.4rem;
+            }
+
+            .character-card {
+                padding: 1.2rem;
+            }
+
+            .character-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .character-id {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="http://127.0.0.1:8000" class="back-button">← Назад</a>
+    <h1>Все персонажи</h1>
+
+    <div class="characters-list">
+        {% for name, data in characters_list.items() %}
+        <div class="character-card">
+            <div class="character-header">
+                <div class="character-id">#{{ "%03d"|format(data["id"]) }}</div>
+                <div class="character-name">{{ name }}</div>
+            </div>
+            <div class="character-date">{{ data["date"] }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
